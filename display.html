@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON Form</title>
+</head>
+<body>
+  <h1>JSON Form</h1>
+  <form method="post">
+    <textarea name="json_data"></textarea>
+    <input type="submit" value="Submit">
+  </form>
+  <div id="json-response"></div>
+  <script>
+    function handleSubmission(event) {
+      event.preventDefault();
+      var jsonData = document.getElementById('json_data').value;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/', true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var jsonResponse = JSON.parse(xhr.responseText);
+          document.getElementById('json-response').innerHTML = JSON.stringify(jsonResponse, null, 2);
+        }
+      };
+      xhr.send(jsonData);
+    }
+    document.querySelector('form').addEventListener('submit', handleSubmission);
+  </script>
+</body>
+</html>
