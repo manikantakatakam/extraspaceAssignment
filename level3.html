@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .box {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+  }
+  
+  .key {
+    margin-right: 10px;
+  }
+  
+  .val {
+    border: 1px solid black;
+    padding: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>JSON Display</h2>
+  <form>
+    <textarea id="jsonInput" rows="5" cols="40" placeholder="Enter JSON here"></textarea>
+    <br>
+    <button type="button" onclick="displayJSON()">Display JSON</button>
+  </form>
+  <div id="output"></div>
+</div>
+
+<script>
+function displayJSON() {
+  const jsonInput = document.getElementById('jsonInput').value;
+  try {
+    const jsonObject = JSON.parse(jsonInput);
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = '';
+
+    for (const key in jsonObject) {
+      if (jsonObject.hasOwnProperty(key)) {
+        const box = document.createElement('div');
+        box.className = 'box';
+        box.innerHTML = `<div class="key">${key}</div><div class="val">${jsonObject[key]}</div>`;
+        outputDiv.appendChild(box);
+      }
+    }
+  } catch (error) {
+    alert('Invalid JSON input. Please enter valid JSON.');
+  }
+}
+</script>
+
+</body>
+</html>
